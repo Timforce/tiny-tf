@@ -57,7 +57,7 @@ class SolverWrapper(object):
         log_image_name = tf.placeholder(tf.string)
         from tensorflow.python.ops import gen_logging_ops
         from tensorflow.python.framework import ops as _ops
-        log_image = gen_logging_ops._image_summary(log_image_name, log_image_data, max_images=2)
+        log_image = gen_logging_ops.image_summary(log_image_name, log_image_data, max_images=2)
         _ops.add_to_collection(_ops.GraphKeys.SUMMARIES, log_image)
         return log_image, log_image_data, log_image_name
 
@@ -199,8 +199,8 @@ class SolverWrapper(object):
 
                 if (len(boxes)>0):
                     refind_idx = nms(boxes, scores, overlapThresh=cfg.TRAIN.NMS_Thresh)
-                    res = final_boxes[refind_idx, :]
-                    conf = final_confidence[refind_idx, :]
+                    res = boxes[refind_idx, :]
+                    conf = scores[refind_idx, :]
                 else:
                     res = []
                     conf = []
