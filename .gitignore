@@ -1,0 +1,10 @@
+*.pyc
+*.c
+*.so
+*.o
+*.jpg
+*.png
+output/
+data/
+demo/
+pred/
