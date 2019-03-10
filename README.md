@@ -10,9 +10,9 @@ Instead of transforming pretrained network parameters from .mat file, this code 
 [tiny]:https://github.com/peiyunh/tiny
 
 ## Requirements
-`python=2.7 tensorflow-gpu numpy scipy scikit-learn opencv-python Cython easydict pyyaml`
+`python=2.7 tensorflow-gpu numpy scipy scikit-learn matplotlib opencv-python Cython easydict pyyaml`
 
-The majority of the code was written with Python 2.7 and [Tensorflow r1.2][tf-link]. Although it should be able to run on newer versions as well, there could potentially be compatibility issues. Please feel free to submit any issue regarding to this problem.\
+The majority of the code was written with Python 2.7 and [Tensorflow r1.2][tf-link], it should be fine running on newer versions as well. If there are any compatibility issues, please feel free to submit it. \
 You may also need a decent GPU to be able to train the network, anything with higher than 6GB GPU memory should suffice.
 
 [tf-link]:https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.2.0-cp27-none-linux_x86_64.whl
@@ -58,10 +58,9 @@ You can quickly test out the code with pretrained network [tensorflow checkpoint
 2. Execute ```demo_tiny_resnet101.sh``` 
 3. Detection result should be right in the ```$tiny-tf/demo/visualize```
 
-Please note that generated visualization bounding boxes have **no** heatmap implementation yet, so all of them are labeled as same color.
-The result will look this:
+The result will look like this:
 <p align="center">
-<img src="samples/selfie.jpg" width="750">
+<img src="samples/selfie.png" width="950">
 <p>
 
 [tf-ckpt]:https://drive.google.com/open?id=1sCoVxcCvu-bL0uNJj-3_mRqDNUfWzQKX

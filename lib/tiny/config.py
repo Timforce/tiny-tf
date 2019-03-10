@@ -70,6 +70,7 @@ __C.DEMO.NMS_Thresh = 0.1
 __C.DEMO.MAX_INPUT_DIM = 5000
 __C.DEMO.PRUNING = True
 __C.DEMO.VISUALIZE = True
+__C.DEMO.DRAW_SCORE_COLORBAR = True
 
 def _merge_a_into_b(a, b):
     """Merge config dictionary a into config dictionary b, clobbering the

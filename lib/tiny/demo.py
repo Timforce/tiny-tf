@@ -3,8 +3,10 @@ import cv2
 import os
 import math
 import tensorflow as tf
+import matplotlib.pyplot as plt
 from .config import cfg
 from ..utils.timer import Timer
+from matplotlib import cm
 
 def normalizer_blob(im, rgb_means):
     # Basically just subtracted the already cropped image with means.
@@ -94,12 +96,27 @@ def _process_boxes_scores(prob_cls_np, score_reg_np, score_cls_np, centers, rati
     bbox = bbox / float(ratio)
     return bbox, confidence
 
+def plot_score_colorbar(im, output_dest, dpi=80):
+    height = im.shape[0]
+    width = im.shape[1]
+    fig, ax = plt.subplots(figsize=(width/float(dpi), height/float(dpi)), dpi=dpi)
+    vis = ax.imshow(cv2.cvtColor(im, cv2.COLOR_BGR2RGB))
+    cbar = fig.colorbar(vis, ax=ax, 
+                        ticks=np.linspace(0, 255, 5), 
+                        pad=0.01, fraction=0.03, 
+                        shrink=0.95, orientation='vertical')
+    _ = cbar.ax.set_yticklabels(np.linspace(0.0, 1.0, 5), fontsize=int(1.5*height/dpi))
+    _ = plt.tight_layout()
+    _ = plt.axis('off')
+    plt.savefig(os.path.splitext(output_dest)[0], dpi=dpi, bbox_inches='tight', transparent=True, pad_inches=0)
+
 def vis_detections(im, boxes, conf, output_dest):
     # A visualization of detection
     output_img = im.copy()
     im_shape = im.shape
-    color = (0, 255, 255)
-    for _, box in enumerate(boxes):
+    # color = (0, 255, 255)
+    cmap = cm.viridis
+    for ind, box in enumerate(boxes):
         (x1, y1, x2, y2) = box
         x1, y1 = max(x1, 0), max(y1, 0)
         x2, y2 = min(x2, im_shape[1]), min(y2, im_shape[0])
@@ -109,8 +126,13 @@ def vis_detections(im, boxes, conf, output_dest):
            lw = 1
         else:
            lw = int(max(2, min(3, min([bh/20, bw/20]))))
+        color = tuple((math.ceil(ch*256)-1) for ch in cmap(conf[ind])[:3])
+        color = (color[2], color[1], color[0])
         cv2.rectangle(output_img, (int(x1), int(y1)), (int(x2), int(y2)), color, lw)
-    cv2.imwrite(output_dest, output_img)
+    if cfg.DEMO.DRAW_SCORE_COLORBAR:
+        plot_score_colorbar(output_img, output_dest)
+    else:
+        cv2.imwrite(output_dest, output_img)
 
 def demo_net(sess, net, centers_ref, weights_filename, dir_path):
     # timers
