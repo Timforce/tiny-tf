@@ -15,7 +15,11 @@ Instead of transforming pretrained network parameters from .mat file, this code 
 The majority of the code was written with Python 2.7 and [Tensorflow r1.2][tf-link], it should be fine running on newer versions as well. If there are any compatibility issues, please feel free to submit it. \
 You may also need a decent GPU to be able to train the network, anything with higher than 6GB GPU memory should suffice.
 
+**There's also [Python 3 version][tiny-tf-py3] of this repository thanks to [JuheonYi][user-JuheonYi]**
+
 [tf-link]:https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.2.0-cp27-none-linux_x86_64.whl
+[tiny-tf-py3]: https://github.com/JuheonYi/tiny-tf
+[user-JuheonYi]: https://github.com/JuheonYi
 
 
 ## Basic setup
