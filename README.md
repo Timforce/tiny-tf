@@ -51,7 +51,7 @@ You may also need a decent GPU to be able to train the network, anything with hi
 3. Compile minibatch for data IO:
     ```Shell
     cd $tiny-tf/lib/roi_data_layer
-    python setup.py build_ext –inplace 
+    python setup.py build_ext --inplace 
     ```
     (Any further modifications in ```minibatch.pyx``` will require re-compiling in order to take effect.)
 
